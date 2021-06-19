@@ -4,22 +4,43 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-    [SerializeField] bool isPlaceable;
     [SerializeField] GameObject towerPrefab;
+    [SerializeField] bool isPlaceable;
+
+    public bool IsPlaceable { get { return isPlaceable; } }
+
+    Color meshMouseOverColor = new Color(0.8f,0.8f,0.8f,0.01f);
+    Color meshOriginalColor;
+
+    MeshRenderer mRenderer;
+
+    private void Start()
+    {
+        mRenderer = GetComponentInChildren<MeshRenderer>();
+        meshOriginalColor = mRenderer.material.color;
+    }
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0) && isPlaceable)
+        if (isPlaceable)
         {
-            //Debug.Log(transform.name);
-            Instantiate(towerPrefab, transform.position, Quaternion.identity);
-            isPlaceable = false;
+            mRenderer.material.color = meshMouseOverColor;
+            if (Input.GetMouseButtonDown(0))
+            {
+                Instantiate(towerPrefab, transform.position, Quaternion.identity);
+                mRenderer.material.color = meshOriginalColor;
+                isPlaceable = false;
+            }
         }
-        //GetComponent<Material>().color = Color.black;
+        
+
     }
 
     private void OnMouseExit()
     {
-        //GetComponentInParent<Material>().color = Color.white;
+        if (mRenderer.material.color != meshOriginalColor)
+        {
+            mRenderer.material.color = meshOriginalColor;
+        }
     }
 }
