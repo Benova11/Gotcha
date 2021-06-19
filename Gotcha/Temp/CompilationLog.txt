@@ -1,2 +1,6 @@
+# Starting compiling UnityEngine.UI.dll
+/Applications/Unity/2020.3.10f1/Unity.app/Contents/Tools/RoslynScripts/unity_csc.sh /noconfig @Temp/UnityTempFile-fae3ab2c3ad194c86aaf01b5fd53f7ca
+# Starting compiling UnityEditor.UI.dll
+/Applications/Unity/2020.3.10f1/Unity.app/Contents/Tools/RoslynScripts/unity_csc.sh /noconfig @Temp/UnityTempFile-add9d0bdd651048a69e2eb9e890244fd
 # Starting compiling Assembly-CSharp.dll
-/Applications/Unity/2020.3.10f1/Unity.app/Contents/Tools/RoslynScripts/unity_csc.sh /noconfig @Temp/UnityTempFile-d62b79026a1d24b11aab61fd1cef43a4
+/Applications/Unity/2020.3.10f1/Unity.app/Contents/Tools/RoslynScripts/unity_csc.sh /noconfig @Temp/UnityTempFile-fbd8280ddfd70436b9904772e4e6b810
