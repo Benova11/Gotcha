@@ -13,14 +13,16 @@ public class TargetLocater : MonoBehaviour
     void Update()
     {
         FindClosestTarget();
-        AimWeapon();
+        if (target)
+        {
+            AimWeapon();
+        }
     }
 
     void AimWeapon()
     {
         float targetDistance = Vector3.Distance(transform.position, target.transform.position);
         Attack(targetDistance <= range);
-
         weapon.LookAt(target);
     }
 
@@ -38,7 +40,6 @@ public class TargetLocater : MonoBehaviour
                 maxDistance = targetDistance;
             }
         }
-
         target = closestTarget;
     }
 
