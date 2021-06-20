@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ram: {fileID: 5040643765344069697, guid: b940df629b09f434dbb9fd487257db6c, type: 3}
-  startingTile: {fileID: 923428341}
+  poolSize: 5
   spwanTimer: 2
 --- !u!4 &102509525
 Transform:
@@ -173,7 +173,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 102509523}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.048725, y: 15.272167, z: -10.689369}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -981,11 +981,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7173034555042749221, guid: 226270c889e344330b9c879d7ff61367, type: 3}
   m_PrefabInstance: {fileID: 2046615004}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &923428341 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1226454484191652544, guid: 7611a2b55764b46049bd4df57f52a225, type: 3}
-  m_PrefabInstance: {fileID: 1308713849}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &929305205 stripped
 Transform:
