@@ -10,9 +10,13 @@ public class TargetLocater : MonoBehaviour
     [SerializeField] float range = 15f;
     Transform target;
 
+    private void OnEnable()
+    {
+        StartCoroutine(FindClosestTarget());
+    }
+
     void Update()
     {
-        FindClosestTarget();
         if (target)
         {
             AimWeapon();
@@ -26,21 +30,25 @@ public class TargetLocater : MonoBehaviour
         weapon.LookAt(target);
     }
 
-    void FindClosestTarget()
+    IEnumerator FindClosestTarget()
     {
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
-        Transform closestTarget = null;
-        float maxDistance = Mathf.Infinity;
-        foreach (Enemy enemy in enemies)
+        while (true)
         {
-            float targetDistance = Vector3.Distance(transform.position, enemy.transform.position);
-            if(targetDistance < maxDistance)
+            Enemy[] enemies = FindObjectsOfType<Enemy>();
+            Transform closestTarget = null;
+            float maxDistance = Mathf.Infinity;
+            foreach (Enemy enemy in enemies)
             {
-                closestTarget = enemy.transform;
-                maxDistance = targetDistance;
+                float targetDistance = Vector3.Distance(transform.position, enemy.transform.position);
+                if (targetDistance < maxDistance)
+                {
+                    closestTarget = enemy.transform;
+                    maxDistance = targetDistance;
+                }
             }
+            target = closestTarget;
+            yield return new WaitForSeconds(1);
         }
-        target = closestTarget;
     }
 
     void Attack(bool isInRange)
