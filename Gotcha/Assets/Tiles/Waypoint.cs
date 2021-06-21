@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-    [SerializeField] GameObject towerPrefab;
+    [SerializeField] Tower towerPrefab;
     [SerializeField] bool isPlaceable;
 
     public bool IsPlaceable { get { return isPlaceable; } }
@@ -26,14 +26,12 @@ public class Waypoint : MonoBehaviour
         {
             mRenderer.material.color = meshMouseOverColor;
             if (Input.GetMouseButtonDown(0))
-            {
-                Instantiate(towerPrefab, transform.position, Quaternion.identity);
+            {              
+                bool isPlaced = towerPrefab.CreateTower(towerPrefab, transform.position);
+                isPlaceable = !isPlaced ;
                 mRenderer.material.color = meshOriginalColor;
-                isPlaceable = false;
             }
         }
-        
-
     }
 
     private void OnMouseExit()
