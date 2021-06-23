@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
     [SerializeField] GameObject ram;
-    [SerializeField] int poolSize = 5;
-    [SerializeField] float spwanTimer = 1f;
+    [SerializeField] [Range(0, 50)] int poolSize = 5;
+    [SerializeField] [Range(0.1f,30f)] float spwanTimer = 1f;
 
     GameObject[] pool;
 
@@ -53,7 +52,7 @@ public class ObjectPool : MonoBehaviour
         while (true)
         {
             EnableObjectInPool();
-            yield return new WaitForSeconds(spwanTimer);
+            yield return new WaitForSeconds(Mathf.Abs(spwanTimer));
         }
     }
 }
