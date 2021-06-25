@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Node
 {
-    public Node parentNode;
+    public Node connectedTo;
     public Vector2Int coordinates;
     public bool isPassable;
     public bool isExplored;
