@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startCoordinate: {x: 0, y: 0}
-  destanationCoordinate: {x: 3, y: 2}
+  destanationCoordinate: {x: 4, y: 4}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
