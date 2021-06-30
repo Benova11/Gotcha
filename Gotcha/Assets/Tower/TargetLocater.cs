@@ -26,8 +26,11 @@ public class TargetLocater : MonoBehaviour
     void AimWeapon()
     {
         float targetDistance = Vector3.Distance(transform.position, target.transform.position);
-        Attack(targetDistance <= range);
-        weapon.LookAt(target);
+        if (GetComponent<Tower>().hasBuilt)
+        {
+            Attack(targetDistance <= range);
+            weapon.LookAt(target);
+        }
     }
 
     IEnumerator FindClosestTarget()
