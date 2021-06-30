@@ -47,10 +47,12 @@ public class Tile : MonoBehaviour
             mRenderer.material.color = meshMouseOverColor;
             if (Input.GetMouseButtonDown(0) && gridManager.GetNode(coordinates).isPassable && !pathfinder.WillBlockPath(coordinates))
             {
-                Debug.Log("ohh");
-                bool isPlaced = towerPrefab.CreateTower(towerPrefab, transform.position);
-                isPlaceable = !isPlaced ;
-                gridManager.BlockNode(coordinates);
+                bool isSuccessful = towerPrefab.CreateTower(towerPrefab, transform.position);
+                if (isSuccessful)
+                {
+                    gridManager.BlockNode(coordinates);
+                    pathfinder.NotifyReceivers();
+                }
                 mRenderer.material.color = meshOriginalColor;
             }
         }
