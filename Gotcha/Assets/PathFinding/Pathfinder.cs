@@ -9,7 +9,7 @@ public class Pathfinder : MonoBehaviour
     [SerializeField] Vector2Int destanationCoordinate;
 
     Node startNode;
-    Node destanationNode;
+    Node destinationNode;
     Node currentSearchNode;
 
     Dictionary<Vector2Int, Node> reached = new Dictionary<Vector2Int, Node>();
@@ -32,10 +32,16 @@ public class Pathfinder : MonoBehaviour
     void Start()
     {
         startNode = gridManager.Grid[startCoordinate];
-        destanationNode = gridManager.Grid[destanationCoordinate];
+        destinationNode = gridManager.Grid[destanationCoordinate];
 
+        GetNewPath();
+    }
+
+    public List<Node> GetNewPath()
+    {
+        gridManager.resetNodes();
         BreadthFirstSearch();
-        CreatePath();
+        return CreatePath();
     }
 
     void ExploreNeighbors()
@@ -64,6 +70,9 @@ public class Pathfinder : MonoBehaviour
 
     void BreadthFirstSearch()
     {
+        frontier.Clear();
+        reached.Clear();
+
         bool isRunning = true;
 
         frontier.Enqueue(startNode);
@@ -84,7 +93,7 @@ public class Pathfinder : MonoBehaviour
     List<Node> CreatePath()
     {
         List<Node> path = new List<Node>();
-        Node currentNode = destanationNode;
+        Node currentNode = destinationNode;
 
         path.Add(currentNode);
         currentNode.isPath = true;
@@ -98,5 +107,24 @@ public class Pathfinder : MonoBehaviour
 
         path.Reverse();
         return path;
+    }
+
+    public bool WillBlockPath(Vector2Int coordinates)
+    {
+        if (grid.ContainsKey(coordinates))
+        {
+            bool previousState = grid[coordinates].isPassable;
+
+            grid[coordinates].isPassable = false;
+            List<Node> newPath = GetNewPath();
+            grid[coordinates].isPassable = previousState;
+
+            if(newPath.Count <= 1)
+            {
+                GetNewPath();
+                return true;
+            }
+        }
+        return false;
     }
 }

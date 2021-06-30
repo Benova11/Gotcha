@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Waypoint : MonoBehaviour
+public class Tile : MonoBehaviour
 {
     [SerializeField] Tower towerPrefab;
     [SerializeField] bool isPlaceable;
@@ -14,10 +14,30 @@ public class Waypoint : MonoBehaviour
 
     MeshRenderer mRenderer;
 
+    GridManager gridManager;
+    Pathfinder pathfinder;
+    Vector2Int coordinates = new Vector2Int();
+
+    void Awake()
+    {
+        gridManager = FindObjectOfType<GridManager>();
+        pathfinder = FindObjectOfType<Pathfinder>();
+    }
+
     private void Start()
     {
         mRenderer = GetComponentInChildren<MeshRenderer>();
         meshOriginalColor = mRenderer.material.color;
+
+        if(gridManager != null)
+        {
+            coordinates = gridManager.GetCoordinatesFromPosition(transform.position);
+
+            if (!IsPlaceable)
+            {
+                gridManager.BlockNode(coordinates);
+            }
+        }
     }
 
     private void OnMouseOver()
@@ -25,10 +45,12 @@ public class Waypoint : MonoBehaviour
         if (isPlaceable)
         {
             mRenderer.material.color = meshMouseOverColor;
-            if (Input.GetMouseButtonDown(0))
-            {              
+            if (Input.GetMouseButtonDown(0) && gridManager.GetNode(coordinates).isPassable && !pathfinder.WillBlockPath(coordinates))
+            {
+                Debug.Log("ohh");
                 bool isPlaced = towerPrefab.CreateTower(towerPrefab, transform.position);
                 isPlaceable = !isPlaced ;
+                gridManager.BlockNode(coordinates);
                 mRenderer.material.color = meshOriginalColor;
             }
         }

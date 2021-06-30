@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33afabd2b5c594242a8d94cb5c0582aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startCoordinate: {x: 0, y: 0}
-  destanationCoordinate: {x: 4, y: 4}
+  startCoordinate: {x: 2, y: 0}
+  destanationCoordinate: {x: 4, y: 2}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,6 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: {x: 5, y: 5}
+  unityGridSize: 10
 --- !u!1001 &1241949340182895930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -459,6 +460,10 @@ PrefabInstance:
     - target: {fileID: 2904067631478846047, guid: dd3b386384332404180ea2897b70881f, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 2947069096
+      objectReference: {fileID: 0}
+    - target: {fileID: 2935856112767358271, guid: dd3b386384332404180ea2897b70881f, type: 3}
+      propertyPath: isPlaceable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4531544140607097490, guid: dd3b386384332404180ea2897b70881f, type: 3}
       propertyPath: m_Enabled
@@ -778,6 +783,10 @@ PrefabInstance:
     - target: {fileID: 8711043247758561459, guid: f957a240c3cab4b20b89c6c4b1e399ae, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8711043247769222456, guid: f957a240c3cab4b20b89c6c4b1e399ae, type: 3}
+      propertyPath: startingBalance
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f957a240c3cab4b20b89c6c4b1e399ae, type: 3}
