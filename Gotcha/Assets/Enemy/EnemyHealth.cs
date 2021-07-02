@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 
 [RequireComponent(typeof(Enemy))]
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] int maxHitPoints = 5;
+    [SerializeField] Slider healthSlider;
 
     [Tooltip("Add amount to maxHitPoints when enemy dies.")]
     [SerializeField] int difficultyRamp = 1;
@@ -18,11 +21,19 @@ public class EnemyHealth : MonoBehaviour
     void OnEnable()
     {
         currentHitpoints = maxHitPoints;
+        healthSlider.maxValue = maxHitPoints;
+        healthSlider.value = currentHitpoints;
     }
 
     private void Start()
     {
         enemy = GetComponent<Enemy>();
+    }
+
+    void Update()
+    {
+        Vector3 sliderPos = Camera.main.WorldToScreenPoint(this.transform.position);
+        healthSlider.transform.position = new Vector3(sliderPos.x, sliderPos.y +40 , sliderPos.z);
     }
 
     private void OnParticleCollision(GameObject other)
@@ -34,6 +45,7 @@ public class EnemyHealth : MonoBehaviour
     void ProcessHit()
     {
         currentHitpoints --;
+        healthSlider.value = currentHitpoints;
         if (currentHitpoints <= 0 )
         {
             gameObject.SetActive(false);
