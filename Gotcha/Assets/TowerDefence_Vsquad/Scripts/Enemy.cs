@@ -18,6 +18,7 @@ namespace Goblins
         public EnemyHp Enemy_Hp;
         public Transform target;
         public GameObject EnemyTarget;
+        EnemyMover parentNode;
 
 
         void Start()
@@ -25,6 +26,7 @@ namespace Goblins
             anim = GetComponent<Animator>();
             Enemy_Hp = Enemybug.GetComponent<EnemyHp>();
             previous_Speed = Speed;
+            parentNode = GetComponentInParent<EnemyMover>();
         }
 
         // Attack
@@ -73,56 +75,56 @@ namespace Goblins
         void Update()
         {
 
-
+            transform.LookAt(parentNode.endPosition);
             //Debug.Log("Animator  " + anim);
 
 
-            // MOVING
+            //// MOVING
 
-            if (curWaypointIndex < waypoints.Length)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, waypoints[curWaypointIndex].position, Time.deltaTime * Speed);
+            //if (curWaypointIndex < waypoints.Length)
+            //{
+            //    transform.position = Vector3.MoveTowards(transform.position, waypoints[curWaypointIndex].position, Time.deltaTime * Speed);
 
-                if (!EnemyTarget)
-                {
-                    transform.LookAt(waypoints[curWaypointIndex].position);
-                }
+            //    if (!EnemyTarget)
+            //    {
+            //        transform.LookAt(waypoints[curWaypointIndex].position);
+            //    }
 
-                if (Vector3.Distance(transform.position, waypoints[curWaypointIndex].position) < 0.5f)
-                {
-                    curWaypointIndex++;
-                }
-            }
+            //    if (Vector3.Distance(transform.position, waypoints[curWaypointIndex].position) < 0.5f)
+            //    {
+            //        curWaypointIndex++;
+            //    }
+            //}
 
-            else
-            {
-                anim.SetBool("Victory", true);  // Victory
-            }
+            //else
+            //{
+            //    anim.SetBool("Victory", true);  // Victory
+            //}
 
-            // DEATH
+            //// DEATH
 
-            if (Enemy_Hp.EnemyHP <= 0)
-            {
-                Speed = 0;
-                Destroy(gameObject, 5f);
-                anim.SetBool("Death", true);
-            }
+            //if (Enemy_Hp.EnemyHP <= 0)
+            //{
+            //    Speed = 0;
+            //    Destroy(gameObject, 5f);
+            //    anim.SetBool("Death", true);
+            //}
 
-            // Attack to Run
-
-
-            if (EnemyTarget)
-            {
+            //// Attack to Run
 
 
-                if (EnemyTarget.CompareTag("Castle_Destroyed")) // get it from BuildingHp
-                {
-                    anim.SetBool("Attack", false);
-                    anim.SetBool("RUN", true);
-                    Speed = previous_Speed;
-                    EnemyTarget = null;
-                }
-            }
+            //if (EnemyTarget)
+            //{
+
+
+            //    if (EnemyTarget.CompareTag("Castle_Destroyed")) // get it from BuildingHp
+            //    {
+            //        anim.SetBool("Attack", false);
+            //        anim.SetBool("RUN", true);
+            //        Speed = previous_Speed;
+            //        EnemyTarget = null;
+            //    }
+            //}
 
 
         }

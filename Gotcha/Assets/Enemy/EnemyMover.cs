@@ -9,6 +9,8 @@ public class EnemyMover : MonoBehaviour
 
     List<Node> path = new List<Node>();
 
+    public Vector3 endPosition;
+
     Enemy enemy;
     GridManager gridManager;
     Pathfinder pathfinder;
@@ -60,7 +62,7 @@ public class EnemyMover : MonoBehaviour
         for(int i = 1; i < path.Count; i++)
         {
             Vector3 startPosition = transform.position;
-            Vector3 endPosition = gridManager.GetPositionFromCoordinates(path[i].coordinates);
+            endPosition = gridManager.GetPositionFromCoordinates(path[i].coordinates);
             float travelPercent = 0f;
 
             transform.LookAt(endPosition);
