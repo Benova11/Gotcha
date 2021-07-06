@@ -26,7 +26,7 @@ public class Tile : MonoBehaviour
 
     private void Start()
     {
-        mRenderer = transform.Find("grass").GetComponent<MeshRenderer>();
+        mRenderer = GetComponentInChildren<MeshRenderer>();
         meshOriginalColor = mRenderer.material.color;
 
         if(gridManager != null)
