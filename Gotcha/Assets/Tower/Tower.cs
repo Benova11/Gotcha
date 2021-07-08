@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    [SerializeField] int buildCost = 75;
+    [SerializeField] static int buildCost = 75;
     [SerializeField] float buildDelay = 1f;
     public bool hasBuilt = false;
 
@@ -48,5 +48,10 @@ public class Tower : MonoBehaviour
         }
         yield return new WaitForSeconds(0.1f);
         hasBuilt = true;
+    }
+
+    public static int GetBuildCost()
+    {
+        return buildCost;
     }
 }

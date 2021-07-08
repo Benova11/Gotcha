@@ -19,6 +19,8 @@ public class Pathfinder : MonoBehaviour
     Queue<Node> frontier = new Queue<Node>();
 
     Vector2Int[] directions = { Vector2Int.right, Vector2Int.left, Vector2Int.up, Vector2Int.down };
+    private Vector2Int tmpDirection;
+
     GridManager gridManager;
     Dictionary<Vector2Int, Node> grid = new Dictionary<Vector2Int, Node>();
 
@@ -53,7 +55,9 @@ public class Pathfinder : MonoBehaviour
     void ExploreNeighbors()
     {
         List<Node> neighbors = new List<Node>();
-        foreach(Vector2Int direction in directions)
+        ShuffleDirections();
+        Debug.Log(directions[0]);
+        foreach (Vector2Int direction in directions)
         {
             Vector2Int neighborCoords = currentSearchNode.coordinates + direction;
 
@@ -74,7 +78,18 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
-    void BreadthFirstSearch(Vector2Int coordinates)
+public void ShuffleDirections()
+{
+    for (int i = 0; i < directions.Length; i++)
+    {
+        int rnd = UnityEngine.Random.Range(0, directions.Length);
+        tmpDirection = directions[rnd];
+        directions[rnd] = directions[i];
+        directions[i] = tmpDirection;
+    }
+}
+
+void BreadthFirstSearch(Vector2Int coordinates)
     {
         startNode.isPassable = true;
         destinationNode.isPassable = true;

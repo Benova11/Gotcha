@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 4800102939630527161}
   - component: {fileID: -5435755679452072418}
   m_Layer: 0
-  m_Name: Ram
+  m_Name: Goblin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

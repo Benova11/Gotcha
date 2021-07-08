@@ -8,17 +8,14 @@ public class GameManager : MonoBehaviour
 {
     Bank bank;
     [SerializeField] TextMeshProUGUI balanceLabel;
+    [SerializeField] TextMeshProUGUI numOfTowersAvailable;
 
     void Start()
     {
         bank = FindObjectOfType<Bank>();
-        bank.OnBalanceChanged += SetBalanceLabel;
+        bank.OnBalanceChanged += UpdateBalnces;
         SetBalanceLabel();
-    }
-
-    void Update()
-    {
-        
+        SetNumOfAvailableTowers();
     }
 
     public void EndGame()
@@ -31,8 +28,19 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    void UpdateBalnces()
+    {
+        SetBalanceLabel();
+        SetNumOfAvailableTowers();
+    }
+
     public void SetBalanceLabel()
     {
-        balanceLabel.text = "Gold: " + bank.CurrentBalance;
+        balanceLabel.text = bank.CurrentBalance.ToString();
+    }
+
+    public void SetNumOfAvailableTowers()
+    {
+        numOfTowersAvailable.text = (bank.CurrentBalance / Tower.GetBuildCost()).ToString();
     }
 }
