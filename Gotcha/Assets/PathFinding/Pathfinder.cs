@@ -56,7 +56,6 @@ public class Pathfinder : MonoBehaviour
     {
         List<Node> neighbors = new List<Node>();
         ShuffleDirections();
-        Debug.Log(directions[0]);
         foreach (Vector2Int direction in directions)
         {
             Vector2Int neighborCoords = currentSearchNode.coordinates + direction;

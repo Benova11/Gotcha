@@ -9,14 +9,21 @@ public class Enemy : MonoBehaviour
     [SerializeField] int goldPenalty = 25;
 
     Bank bank;
+    GameManager gameManager;
     
     void Start()
     {
         bank = FindObjectOfType<Bank>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     public bool RewardGold()
     {
+        if(gameManager != null)
+        {
+            gameManager.OnEnemyDied();
+        }
+
         if (bank != null)
         {
             bank.Deposite(goldReward);

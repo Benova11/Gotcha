@@ -33,7 +33,7 @@ public class Bank : MonoBehaviour
 
         if (currentBalance < 0)
         {
-            gameManager.EndGame();
+            gameManager.LostGame();
         }
         else
         {

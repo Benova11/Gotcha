@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -9,6 +9,13 @@ public class GameManager : MonoBehaviour
     Bank bank;
     [SerializeField] TextMeshProUGUI balanceLabel;
     [SerializeField] TextMeshProUGUI numOfTowersAvailable;
+    [SerializeField] TextMeshProUGUI numOfEnemiesToWinText;
+    [SerializeField] TextMeshProUGUI towerCost;
+    
+    [SerializeField] Text levelSuccess;
+    [SerializeField] int numOfEnemiesToWin = 4;
+
+    bool gameEnded = false;
 
     void Start()
     {
@@ -16,16 +23,36 @@ public class GameManager : MonoBehaviour
         bank.OnBalanceChanged += UpdateBalnces;
         SetBalanceLabel();
         SetNumOfAvailableTowers();
+        numOfEnemiesToWinText.text = "Enemies: " + numOfEnemiesToWin.ToString();
+        towerCost.text = Tower.GetBuildCost().ToString();
     }
 
-    public void EndGame()
+    public void LostGame()
     {
-        ReloadScene();
+        if (!gameEnded)
+        {
+            StartCoroutine(EndGame(false));
+            Debug.Log("LostGame");
+        }
     }
 
-    void ReloadScene()
+    void GoToMainMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void OnEnemyDied()
+    {
+        numOfEnemiesToWin -= 1;
+        if (numOfEnemiesToWin == 0)
+        {
+            numOfEnemiesToWinText.gameObject.SetActive(false);
+            StartCoroutine(EndGame(true));
+        }
+        else
+        {
+            numOfEnemiesToWinText.text = "Enemies To Win: " + numOfEnemiesToWin.ToString();
+        }
     }
 
     void UpdateBalnces()
@@ -42,5 +69,18 @@ public class GameManager : MonoBehaviour
     public void SetNumOfAvailableTowers()
     {
         numOfTowersAvailable.text = (bank.CurrentBalance / Tower.GetBuildCost()).ToString();
+    }
+
+    IEnumerator EndGame (bool isSuccesfull)
+    {
+        gameEnded = true;
+        Debug.Log("EndGame");
+        if (!isSuccesfull)
+        {
+            levelSuccess.text = "Level Failed!";
+        }
+        levelSuccess.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3);
+        GoToMainMenu();
     }
 }
